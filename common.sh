@@ -219,15 +219,27 @@ _OSTYPE_detect() {
   fi
 }
 
+_detect_sudo() {
+  id=$(id)
+  if [ "$(whoami)" == "root" ] || [ ${id:0:5} == "uid=0" ]; then
+    _sudocmd=""
+  else
+    _sudocmd="sudo "
+  fi
+
+  
+}
+
 pkginstall() {
   _OSTYPE_detect
+  _detect_sudo
   case $_OSTYPE in
     DPKG) 
-      apt-get update;
-      apt-get install -y $@;
+      $_sudocmd apt-get update;
+      $_sudocmd apt-get install -y $@;
       ;;
     YUM) 
-      yum install $@;
+      $_sudocmd yum install -y $@;
       ;;
    *)
       log error "Unsupported package manager ($_OSTYPE)"

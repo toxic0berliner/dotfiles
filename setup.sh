@@ -8,6 +8,9 @@ giturlhttps="https://gitlab.amato.top/toxic/dotfiles.git"
 downloadurlbase="https://gitlab.amato.top/toxic/dotfiles/-/raw/master"
 downloadurlsuffix="?ref_type=heads&inline=false"
 
+
+#@todo: fallback to github in case amato.top is unavailable.
+
 fullinstallfolder="$installroot/$installfolder"
 gitavailable=false
 if command -v git >/dev/null 2>&1; then
@@ -36,6 +39,7 @@ else
     mkdir -p $installroot
     cd $installroot
   
+    #@todo: fallback to https if unable to establish ssh connection.
     git clone $giturlssh $installfolder
     if [ "$?" -ne 0 ]; then
       echo "retrying"
