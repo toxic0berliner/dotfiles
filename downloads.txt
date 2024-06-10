@@ -1,0 +1,10 @@
+.env
+common.sh
+install.sh
+stowaway
+home/.tmux.conf
+home/.vimrc
+home/.bashrc
+home/.bash_aliases
+home/.gitconfig
+home/.ssh/authorized_keys
