@@ -2,9 +2,9 @@
 common.sh
 install.sh
 stowaway
-home/.tmux.conf
-home/.vimrc
 home/.bashrc
-home/.bash_aliases
 home/.gitconfig
+home/.tmux.conf
+home/.bash_aliases
+home/.vimrc
 home/.ssh/authorized_keys
