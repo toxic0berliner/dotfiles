@@ -75,7 +75,6 @@ fi
 id=$(id)
 if [ "$(whoami)" == "root" ] || [ ${id:0:5} == "uid=0" ]; then 
   is_root=1
-  log debug "You are root 2 !"
 else
  is_root=false
 fi

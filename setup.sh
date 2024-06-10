@@ -24,36 +24,46 @@ function download {
   fi
 }
 
-if $gitavailable; then # fetch using git ======================================
-  mkdir -p $installroot
-  cd $installroot
-  git clone $giturlssh $installfolder
-  if [ "$?" -ne 0 ]; then
-    echo "retrying"
-    git clone $giturlhttps $installfolder
+if [ -d $fullinstallfolder ]; then 
+  if [ -f "$fullinstallfolder/common.sh" ]; then
+    . $fullinstallfolder/common.sh
+    log warning "Not re-fetching $installfolder as it already exists ($fullinstallfolder)"
+  else
+    echo "Not re-fetching $installfolder as it already exists ($fullinstallfolder)"
   fi
-else #git is not available, fetch manually ====================================
-  mkdir -p $fullinstallfolder/
-  download $downloadurlbase/downloads.txt$downloadurlsuffix $fullinstallfolder/
-
-  cd $fullinstallfolder
-  for f in $(cat $fullinstallfolder/downloads.txt); do
-    echo "Downloading $f."
-    d="."
-    if [[ "$f" =~ "/" ]]; then
-      d=$(dirname $f)
-      mkdir -p $d 2>/dev/null
-      cd $d
+else
+  if $gitavailable; then # fetch using git ======================================
+    mkdir -p $installroot
+    cd $installroot
+  
+    git clone $giturlssh $installfolder
+    if [ "$?" -ne 0 ]; then
+      echo "retrying"
+      git clone $giturlhttps $installfolder
     fi
-      download $downloadurlbase/$f$downloadurlsuffix $fullinstallfolder/$d/
-    if [[ "$f" =~ "/" ]]; then
-      cd $fullinstallfolder
-    fi
-  done
-
-  cd $fullinstallfolder/
-  chmod +x ./*.sh ./.env ./stowaway
-  mkdir -p $fullinstallfolder/log $fullinstallfolder/origin.bak
+  else #git is not available, fetch manually ====================================
+    mkdir -p $fullinstallfolder/
+    download $downloadurlbase/downloads.txt$downloadurlsuffix $fullinstallfolder/
+  
+    cd $fullinstallfolder
+    for f in $(cat $fullinstallfolder/downloads.txt); do
+      echo "Downloading $f."
+      d="."
+      if [[ "$f" =~ "/" ]]; then
+        d=$(dirname $f)
+        mkdir -p $d 2>/dev/null
+        cd $d
+      fi
+        download $downloadurlbase/$f$downloadurlsuffix $fullinstallfolder/$d/
+      if [[ "$f" =~ "/" ]]; then
+        cd $fullinstallfolder
+      fi
+    done
+  
+    cd $fullinstallfolder/
+    chmod +x ./*.sh ./.env ./stowaway
+    mkdir -p $fullinstallfolder/log $fullinstallfolder/origin.bak
+  fi
 fi
 
 cd $installroot
