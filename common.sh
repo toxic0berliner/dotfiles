@@ -214,7 +214,7 @@ _OSTYPE_detect() {
   # is not our $_OSTYPE. The choice is not very good because
   # a typo can just break the logic of the program.
   if [[ "$OSTYPE" != "darwin"* ]]; then
-    _error "Can't detect OS type from /etc/issue. Running fallback method."
+    log error "Can't detect OS type from /etc/issue. Running fallback method."
   fi
   [[ -x "/usr/bin/pacman" ]]           && _OSTYPE="PACMAN" && return
   [[ -x "/usr/bin/apt-get" ]]          && _OSTYPE="DPKG" && return
@@ -224,8 +224,8 @@ _OSTYPE_detect() {
   [[ -x "/usr/bin/emerge" ]]           && _OSTYPE="PORTAGE" && return
   [[ -x "/usr/bin/zypper" ]]           && _OSTYPE="ZYPPER" && return
   if [[ -z "$_OSTYPE" ]]; then
-    _error "No supported package manager installed on system"
-    _error "(supported: apt, homebrew, pacman, portage, yum)"
+    log error "No supported package manager installed on system"
+    log error "(supported: apt, homebrew, pacman, portage, yum)"
     exit 1
   fi
 }

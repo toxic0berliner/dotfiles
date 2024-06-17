@@ -67,6 +67,7 @@ if [ $sudoavailable ]; then
       can_sudo=0
   else
       log debug "Unexpected sudo response: $sudo_response"
+      can_sudo=0
   fi
 else # sudo is not available
   can_sudo=0
