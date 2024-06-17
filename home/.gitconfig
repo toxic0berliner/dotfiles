@@ -1,3 +1,6 @@
 [user]
 	name = etienne
 	email = etienne@amato.top
+[credential]
+    helper = store --file ~/.git-credentials
+    helper = cache --timeout 30000
