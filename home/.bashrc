@@ -166,7 +166,8 @@ function detachTmuxAndRunThenReattach {
 }
 
 # autostart tmux
-if ! { [ "$TERM" = "screen" ] || [ -n "$TMUX" ]; } then
+#if ! { [ "$TERM" = "screen" ] || [ -n "$TMUX" ]; } then
+if ! { [ -n "$TMUX" ]; } then
 		echo "not inside tmux: TERM=$TERM and TMUX=$TMUX."
         ID="`tmux ls | cut -d: -f1`" # get the id of a deattached session
         if [[ -z "$ID" ]] ;then # if not available create a new one
