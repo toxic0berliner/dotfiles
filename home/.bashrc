@@ -179,6 +179,7 @@ if ! { [ -n "$TMUX" ]; } then
         else
                 tmux attach-session -t "$ID" # if available attach to it
         fi
+        exit
 fi
 
 # Trim leading and trailing spaces (for scripts)
