@@ -26,6 +26,7 @@ function addfile () {
 }
 
 function addpackage() {
+cd $scriptdir
 cd $1
 log debug "Adding Package $1"
 for d in $(find . -type d); do
@@ -40,7 +41,7 @@ done
 addfile ".env"
 addfile "common.sh"
 addfile "install.sh"
-addfile "stowaway"
+addpackage "bin"
 addpackage "home"
 
 log info "Done generating the list of files to be downlaoded for installation without git."

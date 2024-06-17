@@ -1,10 +1,12 @@
 .env
 common.sh
 install.sh
-stowaway
-home/.bashrc
-home/.gitconfig
+bin/stowaway
+bin/tmux
 home/.tmux.conf
-home/.bash_aliases
 home/.vimrc
+home/.bashrc
+home/.bash_aliases
+home/.gitconfig
+home/.ssh/config
 home/.ssh/authorized_keys

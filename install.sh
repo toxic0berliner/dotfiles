@@ -8,20 +8,20 @@ log info "Installing dotfiles..."
 mkdir -p $dotfiles
 
 # Install stowaway https://github.com/jamesbehr/stowaway
-if [ ! -f $dotfiles/stowaway ]; then
+if [ ! -f $dotfiles/bin/stowaway ]; then
   log debug "Downloading stowaway..."
-  download  https://github.com/jamesbehr/stowaway/releases/latest/download/stowaway-linux-amd64.tar.gz $dotfiles/
-  download  https://github.com/jamesbehr/stowaway/releases/latest/download/stowaway-linux-amd64.tar.gz.sha256sum $dotfiles/
+  download  https://github.com/jamesbehr/stowaway/releases/latest/download/stowaway-linux-amd64.tar.gz $dotfiles/bin/
+  download  https://github.com/jamesbehr/stowaway/releases/latest/download/stowaway-linux-amd64.tar.gz.sha256sum $dotfiles/bin/
   log debug "  Verifying checksum..."
-  d=$(cd $dotfiles; sha256sum -c stowaway-linux-amd64.tar.gz.sha256sum)
+  d=$(cd $dotfiles/bin; sha256sum -c stowaway-linux-amd64.tar.gz.sha256sum)
   log debug "sha256 check: $d"
   if [ "$(echo $d | grep OK | wc -l)" -le 0 ]; then
     log debug "    Last command: $?"
     log error "  Unable to download stowaway."
   else
     log info "Installing stowaway..."
-    tar -xzf $dotfiles/stowaway-linux-amd64.tar.gz -C $dotfiles/ >/dev/null 2>&1
-    rm $dotfiles/stowaway-linux-amd64.tar.gz $dotfiles/stowaway-linux-amd64.tar.gz.sha256sum
+    tar -xzf $dotfiles/bin/stowaway-linux-amd64.tar.gz -C $dotfiles/bin/ >/dev/null 2>&1
+    rm $dotfiles/bin/stowaway-linux-amd64.tar.gz $dotfiles/bin/stowaway-linux-amd64.tar.gz.sha256sum
     chmod +x $dotfiles/bin/stowaway
   fi
 else
@@ -52,7 +52,7 @@ done
 
 log info "Running stowaway..."
 cd $dotfiles
-./stowaway stow home --target $HOME
+./bin/stowaway stow home --target $HOME
 
 # Check if we can install packages
 sudoavailable=false
@@ -81,7 +81,9 @@ fi
 
 if [ $can_sudo ] || [ $is_root ]; then
   log info "Installing needed packages..."
-  pkginstall tmux git vim tree
+  pkginstall tmux git vim
+  pkginstall tree bat zoxide fzf 
+  pkginstall dust btop delta eza
 else
   log warning "Unable to install packages: neither root nor sudoer."
 fi

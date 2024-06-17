@@ -4,9 +4,15 @@ installroot=$HOME
 installfolder=".dotfiles"
 giturlssh="ssh://git@gitlab.amato.top:8022/toxic/dotfiles.git"
 giturlhttps="https://gitlab.amato.top/toxic/dotfiles.git"
-#downloadurl="https://gitlab.amato.top/toxic/dotfiles/-/raw/master/README.md?ref_type=heads&inline=false"
 downloadurlbase="https://gitlab.amato.top/toxic/dotfiles/-/raw/master"
 downloadurlsuffix="?ref_type=heads&inline=false"
+
+
+mirrorfallback_timeout=5
+giturlssh_mirror="ssh://git@github.com:toxic0berliner/dotfiles.git"
+giturlhttps_mirror="https://github.com/toxic0berliner/dotfiles.git"
+downloadurlbase_mirror="https://raw.githubusercontent.com/toxic0berliner/dotfiles/master/"
+downloadurlsuffix_mirror=""
 
 
 #@todo: fallback to github in case amato.top is unavailable.
@@ -22,8 +28,30 @@ function download {
   destination=$2
   if command -v curl >/dev/null 2>&1; then
     (cd $destination; curl -sLO $url)
-  elif command -v curl >/dev/null 2>&1; then
+  elif command -v wget >/dev/null 2>&1; then
     (cd $destination; wget -q $url)
+  fi
+}
+
+function _select_mirror {
+  choosemirror=false
+  if command -v curl >/dev/null 2>&1; then
+    curl -sL --connect-timeout $mirrorfallback_timeout "$downloadurlbase" > /dev/null 2>&1
+    if [ "$?" -ne "0" ]; then
+	choosemirror=true;
+    fi;
+  elif command -v wget >/dev/null 2>&1; then
+    wget -q --timeout $mirrorfallback_timeout "$downloadurlbase" > /dev/null 2>&1
+    if [ "$?" -ne "0" ]; then
+	choosemirror=true;
+    fi;
+  fi
+  if [ $choosemirror ]; then
+    echo "Falling back to mirror."
+    downloadurlbase=$downloadurlbase_mirror
+    downloadurlsuffix=$downloadurlsuffix_mirror
+    giturlssh=$giturlssh_mirror
+    giturlhttps=$giturlhttps_mirror
   fi
 }
 
@@ -35,6 +63,7 @@ if [ -d $fullinstallfolder ]; then
     echo "Not re-fetching $installfolder as it already exists ($fullinstallfolder)"
   fi
 else
+  _select_mirror
   if $gitavailable; then # fetch using git ======================================
     mkdir -p $installroot
     cd $installroot
@@ -65,7 +94,7 @@ else
     done
   
     cd $fullinstallfolder/
-    chmod +x ./*.sh ./.env ./stowaway
+    chmod +x ./*.sh ./.env ./bin/*
     mkdir -p $fullinstallfolder/log $fullinstallfolder/origin.bak
   fi
 fi
