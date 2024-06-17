@@ -80,7 +80,7 @@ else
  is_root=false
 fi
 
-if [ $can_sudo ] || [ $is_root ]; then
+if [ "$can_sudo" -eq "1" ] || [ $is_root ]; then
   log info "Installing needed packages..."
   pkginstall tmux git vim
   pkginstall tree bat zoxide fzf 
