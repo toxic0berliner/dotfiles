@@ -11,6 +11,7 @@ if command -v vim >/dev/null 2>&1; then
 fi
 
 alias ll='ls -alh'
+alias lll='ll'
 alias l='ls -CFh'
 alias cscli='docker exec crowdsec cscli '
 alias psgrep='ps aux |grep -v grep | grep -i '
@@ -39,12 +40,14 @@ if ! command -v eza >/dev/null 2>&1; then
   alias lm='ls -alh |more' # pipe through 'more'
   alias lw='ls -xAh' # wide listing format
   alias ll='ls -Fls' # long listing format
+  alias lll='ls -Flsa' # long listing format
   alias labc='ls -lap' #alphabetical sort
   alias lf="ls -l | egrep -v '^d'" # files only
   alias ldir="ls -l | egrep '^d'" # directories only
   alias ld="ldir"
 else
   alias ls="eza -AF -h"
+  alias lll="eza -F -l -s Name -a"
   alias ll="eza -F -l -s Name"
   alias l="eza"
 fi
