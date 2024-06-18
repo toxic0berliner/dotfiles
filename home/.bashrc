@@ -263,7 +263,7 @@ function __setprompt
 
 	# Host
 	if [ $ENVTYPE ] || [ $APP ] || [ $DC ]; then 
-      PS1+="\[${DARKGRAY}\]($hostname - \[${GREEN}\]$APP \[${RED}\]$ENVTYPE\[${DARKGRAY}\] $DC)"
+      PS1+="\[${DARKGRAY}\]($hostname \[${GREEN}\]$APP \[${RED}\]$ENVTYPE\[${DARKGRAY}\] $DC)"
     else
 	  PS1+="\[${DARKGRAY}\]($hostname)"
     fi
