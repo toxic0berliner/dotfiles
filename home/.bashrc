@@ -20,6 +20,10 @@ if [ -d "$HOME/bin" ]; then
   export PATH="$PATH:~/bin"
 fi
 
+if [ -d "$HOME/.local/bin/nvim.appimage-root/usr/bin" ]; then
+  export PATH="$PATH:~/.local/bin/nvim.appimage-root/usr/bin"
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth

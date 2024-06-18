@@ -2,7 +2,13 @@
 alias tmus='tmux'
 
 # prefer vim
-alias vi='vim'
+if command -v vim >/dev/null 2>&1; then
+  alias vi='vim'
+fi
+# prefer nvim
+if command -v vim >/dev/null 2>&1; then
+  alias vi='nvim'
+fi
 
 alias ll='ls -alh'
 alias l='ls -CFh'
