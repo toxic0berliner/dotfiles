@@ -345,4 +345,5 @@ apachelog ()
 	fi
 }
 
-
+# History 
+alias h="history |grep -i"
