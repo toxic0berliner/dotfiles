@@ -9,6 +9,15 @@ fi
 if command -v vim >/dev/null 2>&1; then
   alias vi='nvim'
 fi
+# prefer bat
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat'
+fi
+# prefer zoxide
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init bash)"
+  alias cd='z'
+fi
 
 alias ll='ls -alh'
 alias lll='ll'
