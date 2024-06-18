@@ -54,6 +54,11 @@ log info "Running stowaway..."
 cd $dotfiles
 ./bin/stowaway stow home --target $HOME
 
+if command -v git >/dev/null 2>&1; then
+  log info "Setting up tmux.."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
 # Check if we can install packages
 sudoavailable=false
 if command -v sudo >/dev/null 2>&1; then
