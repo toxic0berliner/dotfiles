@@ -21,21 +21,27 @@ alias .....='cd ../../../..'
 alias bd='cd "$OLDPWD"'
 
 # Alias's for multiple directory listing commands
-alias la='ls -Alh' # show hidden files
-alias ls='ls -AFh --color=always' # add colors and file type extensions
-alias lx='ls -lXBh' # sort by extension
-alias lk='ls -lSrh' # sort by size
-alias lc='ls -lcrh' # sort by change time
-alias lu='ls -lurh' # sort by access time
-alias lr='ls -lRh' # recursive ls
-alias lt='ls -ltrh' # sort by date
-alias lm='ls -alh |more' # pipe through 'more'
-alias lw='ls -xAh' # wide listing format
-alias ll='ls -Fls' # long listing format
-alias labc='ls -lap' #alphabetical sort
-alias lf="ls -l | egrep -v '^d'" # files only
-alias ldir="ls -l | egrep '^d'" # directories only
-alias ld="ldir"
+if ! command -v eza >/dev/null 2>&1; then
+  alias la='ls -Alh' # show hidden files
+  alias ls='ls -AFh --color=always' # add colors and file type extensions
+  alias lx='ls -lXBh' # sort by extension
+  alias lk='ls -lSrh' # sort by size
+  alias lc='ls -lcrh' # sort by change time
+  alias lu='ls -lurh' # sort by access time
+  alias lr='ls -lRh' # recursive ls
+  alias lt='ls -ltrh' # sort by date
+  alias lm='ls -alh |more' # pipe through 'more'
+  alias lw='ls -xAh' # wide listing format
+  alias ll='ls -Fls' # long listing format
+  alias labc='ls -lap' #alphabetical sort
+  alias lf="ls -l | egrep -v '^d'" # files only
+  alias ldir="ls -l | egrep '^d'" # directories only
+  alias ld="ldir"
+else
+  alias ls="eza -AF -h"
+  alias ll="eza -F -l -s Name"
+  alias l="eza"
+fi
 
 
 # Search command line history
