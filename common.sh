@@ -246,7 +246,11 @@ pkginstall() {
   _detect_sudo
   case $_OSTYPE in
     DPKG) 
-      $_sudocmd apt-get update;
+      if [ -z "$_apt_update_done" ]; then
+        log debug "Running apt-update."
+        $_sudocmd apt-get update;
+        export _apt_update_done=true
+      fi
       $_sudocmd apt-get install -y $@;
       ;;
     YUM) 

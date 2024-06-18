@@ -8,6 +8,18 @@ case $- in
       *) return;;
 esac
 
+if [ -d "$HOME/.dotfiles/bin" ]; then 
+  export PATH="$PATH:~/.dotfiles/bin/";
+fi
+
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$PATH:~/.local/bin"
+fi
+
+if [ -d "$HOME/bin" ]; then
+  export PATH="$PATH:~/bin"
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -137,6 +149,12 @@ if [ -f ~/.bashrc_work ]; then
     . ~/.bashrc_work
 fi
 
+if command -v fzf >/dev/null 2>&1; then
+  # Set up fzf key bindings and fuzzy completion
+  eval "$(fzf --bash)"
+fi
+
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -148,8 +166,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-#export PATH=/home/pi/bin/:$PATH;
-export PATH="$PATH:~/.dotfiles/bin/";
 PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\]"
 export PS=1"\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $\[\033[00m\]"
 
@@ -320,3 +336,5 @@ function __setprompt
 	PS4='\[${DARKGRAY}\]+\[${NOCOLOR}\] '
 }
 PROMPT_COMMAND='__setprompt'
+
+
