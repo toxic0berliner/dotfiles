@@ -9,5 +9,6 @@ home/.bashrc
 home/.gitconfig
 home/.vimrc
 home/.tmux.conf
+home/.bash_profile
 home/.ssh/authorized_keys
 home/.ssh/config
