@@ -13,6 +13,9 @@ fi
 if command -v bat >/dev/null 2>&1; then
   alias cat='bat'
 fi
+if command -v batcat >/dev/null 2>&1; then
+  alias cat='batcat'
+fi
 # prefer zoxide
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init bash)"

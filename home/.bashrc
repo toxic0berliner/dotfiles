@@ -155,7 +155,13 @@ fi
 
 if command -v fzf >/dev/null 2>&1; then
   # Set up fzf key bindings and fuzzy completion
-  eval "$(fzf --bash)"
+  if [ "$(fzf --version | cut -d '.' -f 2)" -ge "48" ]; then 
+    eval "$(fzf --bash)"
+  else
+    if [ -f "/usr/share/doc/fzf/examples/key-bindings.bash" ]; then
+      source "/usr/share/doc/fzf/examples/key-bindings.bash"
+    fi
+  fi
 fi
 
 
