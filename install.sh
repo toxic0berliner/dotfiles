@@ -87,9 +87,18 @@ fi
 
 if [ "$can_sudo" -eq "1" ] || [ $is_root ]; then
   log info "Installing needed packages..."
-  pkginstall tmux git vim
-  pkginstall tree bat zoxide fzf 
-  pkginstall dust btop delta eza
+  pkginstall tmux 
+  pkginstall git 
+  pkginstall vim
+  pkginstall tree 
+  pkginstall bat 
+  pkginstall zoxide 
+  pkginstall fzf 
+  pkginstall dust 
+  pkginstall btop
+  pkginstall delta 
+  pkginstall eza
+  pkginstall neovim
 else
   log warning "Unable to install packages: neither root nor sudoer."
 fi
