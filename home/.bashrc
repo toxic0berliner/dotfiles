@@ -9,19 +9,19 @@ case $- in
 esac
 
 if [ -d "$HOME/.dotfiles/bin" ]; then 
-  export PATH="$PATH:~/.dotfiles/bin/";
+  export PATH="$PATH:$HOME/.dotfiles/bin/";
 fi
 
 if [ -d "$HOME/.local/bin" ]; then
-  export PATH="$PATH:~/.local/bin"
+  export PATH="$PATH:$HOME/.local/bin"
 fi
 
 if [ -d "$HOME/bin" ]; then
-  export PATH="$PATH:~/bin"
+  export PATH="$PATH:$HOME/bin"
 fi
 
 if [ -d "$HOME/.local/bin/nvim.appimage-root/usr/bin" ]; then
-  export PATH="$PATH:~/.local/bin/nvim.appimage-root/usr/bin"
+  export PATH="$PATH:$HOME/.local/bin/nvim.appimage-root/usr/bin"
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -205,7 +205,7 @@ if ! { [ -n "$TMUX" ]; } then
         else
                 tmux attach-session -t "$ID" # if available attach to it
         fi
-        exit
+        #exit
 fi
 
 # Trim leading and trailing spaces (for scripts)
@@ -313,7 +313,8 @@ function __setprompt
 	local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
 	local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
 	if [ $SSH2_IP ] || [ $SSH_IP ] ; then
-		PS1+="(\[${RED}\]\u@\h"
+		#PS1+="(\[${RED}\]\u@\h"
+		PS1+="(\[${RED}\]\u"
 	else
 		PS1+="(\[${RED}\]\u"
 	fi
@@ -347,4 +348,20 @@ function __setprompt
 }
 PROMPT_COMMAND='__setprompt'
 
+#Enable working directory reporting using OCS_1337 protocol:
+    if [ -z "$TMUX" ]; then
+        export PS1=${PS1}'\[\e]1337;CurrentDir=${PWD}\a\]'
+    else
+        if [ $(echo "$(echo $TERM_PROGRAM_VERSION | sed 's/\([0-9]\.[0-9]\)[a-z]/\1/') < 3.3" | bc) -eq 0 ]; then
+            export PS1=${PS1}'\[\e]7;${PWD}\a\]'
+        else
+            export PS1=${PS1}'\[\ePtmux;\e\e]1337;CurrentDir=${PWD}\a\e\\\]'
+        fi
+    fi
 
+# prefer zoxide
+if command -v zoxide >/dev/null 2>&1; then
+  #eval "$(zoxide init bash)"
+  eval "$(zoxide init bash --cmd cd --hook prompt)"
+  #alias cd='z'
+fi
