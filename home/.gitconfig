@@ -5,17 +5,18 @@
     helper = store --file ~/.git-credentials
     helper = cache --timeout 30000
 
-#[core]
-#    pager = delta
+[core]
+    pager = delta
 
-#[interactive]
-#    diffFilter = delta --color-only
+[interactive]
+    diffFilter = delta --color-only
 
-#[delta]
-#    navigate = true
+[delta]
+    navigate = true
+    true-color = always
 
-#[merge]
-#    conflictstyle = diff3
+[merge]
+    conflictstyle = diff3
 
-#[diff]
-#    colorMoved = default
+[diff]
+    colorMoved = default
