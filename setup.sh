@@ -71,7 +71,7 @@ else
     cd $installroot
   
     #@todo: fallback to https if unable to establish ssh connection.
-    git clone $giturlssh $installfolder
+    GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone $giturlssh $installfolder
     if [ "$?" -ne 0 ]; then
       echo "retrying"
       git clone $giturlhttps $installfolder
