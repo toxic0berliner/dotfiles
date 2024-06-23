@@ -59,48 +59,7 @@ if command -v git >/dev/null 2>&1; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-# Check if we can install packages
-sudoavailable=false
-if command -v sudo >/dev/null 2>&1; then
-    sudoavailable=true
-fi
-if [ $sudoavailable ]; then 
-  sudo_response=$(SUDO_ASKPASS=/bin/false sudo -A whoami 2>&1 | wc -l)
-  if [ $sudo_response = 2 ]; then
-      can_sudo=1
-  elif [ $sudo_response = 1 ]; then
-      can_sudo=0
-  else
-      log debug "Unexpected sudo response: $sudo_response"
-      can_sudo=0
-  fi
-else # sudo is not available
-  can_sudo=0
-fi
-
-id=$(id)
-if [ "$(whoami)" == "root" ] || [ ${id:0:5} == "uid=0" ]; then 
-  is_root=1
-else
- is_root=false
-fi
-
-if [ "$can_sudo" -eq "1" ] || [ $is_root ]; then
-  log info "Installing needed packages..."
-  pkginstall tmux 
-  pkginstall git 
-  pkginstall vim
-  pkginstall tree 
-  pkginstall bat 
-  pkginstall zoxide 
-  pkginstall fzf 
-  pkginstall dust 
-  pkginstall btop
-  pkginstall delta 
-  pkginstall eza
-  pkginstall neovim
-else
-  log warning "Unable to install packages: neither root nor sudoer."
-fi
+log info "Installing binaries"
+./install-binaries.sh
 
 log info "dotfiles install completed."

@@ -41,6 +41,7 @@ done
 addfile ".env"
 addfile "common.sh"
 addfile "install.sh"
+addfile "install-binaries.sh"
 addpackage "bin"
 addpackage "home"
 

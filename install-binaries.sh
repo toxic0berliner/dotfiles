@@ -3,16 +3,14 @@
 scriptdir=$(realpath $(dirname $0))
 . $scriptdir/common.sh
 
-log info "Installing dotfiles..."
-
-mkdir -p $dotfiles
+log info "Installing packages..."
 
 # Check if we can install packages
 sudoavailable=false
 if command -v sudo >/dev/null 2>&1; then
     sudoavailable=true
 fi
-if [ $sudoavailable ]; then 
+if [ "$sudoavailable" == "true" ]; then 
   id=$(SUDO_ASKPASS=/bin/false sudo -A id 2>&1 )
   if [ "${id:0:5}" == "uid=0" ]; then
       can_sudo=true
@@ -26,28 +24,25 @@ fi
 
 id=$(id)
 if [ "$(whoami)" == "root" ] || [ ${id:0:5} == "uid=0" ]; then 
-  is_root=1
+  is_root=true
 else
- is_root=false
+  is_root=false
 fi
 
-# DEBUG
-can_sudo=false
-is_root=false
-
+log debug "can_sudo=$can_sudo and is_root=$is_root"
 if [ "$can_sudo" = "true" ] || [ "$is_root" = true ]; then
   log info "Installing needed packages..."
   pkginstall tmux 
   pkginstall git 
   pkginstall vim
   pkginstall tree
-  pkginstall bat 
-  pkginstall zoxide 
-  pkginstall fzf 
-  pkginstall dust
+  #pkginstall bat 
+  #pkginstall zoxide 
+  #pkginstall fzf 
+  #pkginstall dust
   pkginstall btop 
-  pkginstall delta 
-  pkginstall eza
+  #pkginstall delta 
+  #pkginstall eza
   log info "Installed all needed packages."
 fi
 
