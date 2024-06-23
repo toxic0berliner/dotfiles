@@ -352,7 +352,8 @@ PROMPT_COMMAND='__setprompt'
     if [ -z "$TMUX" ]; then
         export PS1=${PS1}'\[\e]1337;CurrentDir=${PWD}\a\]'
     else
-        if [ $(echo "$(echo $TERM_PROGRAM_VERSION | sed 's/\([0-9]\.[0-9]\)[a-z]/\1/') < 3.3" | bc) -eq 0 ]; then
+        #if [ $(echo "$(echo $TERM_PROGRAM_VERSION | sed 's/\([0-9]\.[0-9]\)[a-z]/\1/') < 3.3" | bc) -eq 0 ]; then
+	if [ "$(echo $TERM_PROGRAM_VERSION | sed 's/\([0-9]\)\.\([0-9]\)[a-z]/\1\2/')" -lt "33" ]; then
             export PS1=${PS1}'\[\e]7;${PWD}\a\]'
         else
             export PS1=${PS1}'\[\ePtmux;\e\e]1337;CurrentDir=${PWD}\a\e\\\]'
