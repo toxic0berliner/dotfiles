@@ -6,7 +6,7 @@ if command -v vim >/dev/null 2>&1; then
   alias vi='vim'
 fi
 # prefer nvim
-if command -v vim >/dev/null 2>&1; then
+if command -v nvim >/dev/null 2>&1; then
   alias vi='nvim'
 fi
 # prefer bat
