@@ -39,14 +39,16 @@ function _select_mirror {
     curl -sL --connect-timeout $mirrorfallback_timeout "$downloadurlbase" > /dev/null 2>&1
     if [ "$?" -ne "0" ]; then
 	choosemirror=true;
+	#echo "curl unable to connect to $downloadurlbase in less than $mirrorfallback_timeout"
     fi;
   elif command -v wget >/dev/null 2>&1; then
     wget -q --timeout $mirrorfallback_timeout "$downloadurlbase" > /dev/null 2>&1
     if [ "$?" -ne "0" ]; then
 	choosemirror=true;
+	#echo "wget unable to connect to $downloadurlbase in less than $mirrorfallback_timeout"
     fi;
   fi
-  if [ $choosemirror ]; then
+  if [ "$choosemirror" == "true" ]; then
     echo "Falling back to mirror."
     downloadurlbase=$downloadurlbase_mirror
     downloadurlsuffix=$downloadurlsuffix_mirror
