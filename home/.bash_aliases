@@ -23,6 +23,9 @@ fi
 #  #alias cd='z'
 #fi
 
+#make less interpret colors properly
+alias less='less -r'
+
 alias ll='ls -alh'
 alias lll='ll'
 alias l='ls -CFh'
