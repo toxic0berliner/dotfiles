@@ -312,15 +312,20 @@ function __setprompt
 	# User and server
 	local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
 	local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
-	if [ $SSH2_IP ] || [ $SSH_IP ] ; then
-		#PS1+="(\[${RED}\]\u@\h"
-		PS1+="(\[${RED}\]\u"
+	if [ "$EUID" -ne 0 ]; then
+  	  if [ $SSH2_IP ] || [ $SSH_IP ] ; then
+  	    #PS1+="(\[${RED}\]\u@\h"
+	    PS1+="(\[${RED}\]\u"
+      else
+	    PS1+="(\[${RED}\]\u"
+	  fi
+      # Current directory
+      PS1+="\[${DARKGRAY}\]:\[${BROWN}\]\w\[${DARKGRAY}\])"
 	else
-		PS1+="(\[${RED}\]\u"
+      # Current directory
+      PS1+="(\[${BROWN}\]\w\[${DARKGRAY}\])"
 	fi
 
-	# Current directory
-	PS1+="\[${DARKGRAY}\]:\[${BROWN}\]\w\[${DARKGRAY}\])"
 
 	# Total size of files in current directory
 	#PS1+="(\[${GREEN}\]$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')\[${DARKGRAY}\]:"
