@@ -55,7 +55,7 @@ if ! command -v eza >/dev/null 2>&1; then
   alias lt='ls -ltrh' # sort by date
   alias lm='ls -alh |more' # pipe through 'more'
   alias lw='ls -xAh' # wide listing format
-  alias ll='ls -Fls' # long listing format
+  alias ll='ls -aFls' # long listing format
   alias lll='ls -Flsa' # long listing format
   alias labc='ls -lap' #alphabetical sort
   alias lf="ls -l | egrep -v '^d'" # files only
@@ -64,7 +64,7 @@ if ! command -v eza >/dev/null 2>&1; then
 else
   alias ls="eza -AF -h"
   alias lll="eza -F -l -s Name -a"
-  alias ll="eza -F -l -s Name"
+  alias ll="eza -F -a -l -s Name"
   alias l="eza"
 fi
 
