@@ -90,7 +90,7 @@ fi
 cmd="bat"
 if ! command -v $cmd >/dev/null 2>&1; then
   log info "Installing $cmd."
-  ./eget "sharkdp/bat" --asset musl
+  ./eget "sharkdp/bat" --asset musl --asset x86_64
 fi
 
 cmd="eza"
