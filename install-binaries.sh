@@ -141,4 +141,16 @@ if ! command -v $cmd >/dev/null 2>&1; then
   ./eget "starship/starship"  --asset musl --asset tar
 fi
 
+cmd="jq"
+if ! command -v $cmd >/dev/null 2>&1; then
+  log info "Installing $cmd."
+  ./eget "jqlang/jq"  --asset linux --asset amd64
+fi
+
+cmd="yq"
+if ! command -v $cmd >/dev/null 2>&1; then
+  log info "Installing $cmd."
+  ./eget "mikefarah/yq"  --asset linux --asset amd64 --asset ^tar
+fi
+
 chmod -R +x $usrbin
