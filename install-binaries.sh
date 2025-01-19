@@ -153,4 +153,10 @@ if ! command -v $cmd >/dev/null 2>&1; then
   ./eget "mikefarah/yq"  --asset linux --asset amd64 --asset ^tar
 fi
 
+cmd="bat-extras"
+if ! command -v $cmd >/dev/null 2>&1; then
+  log info "Installing $cmd."
+  ./eget eth-p/bat-extras --all --to .
+fi
+
 chmod -R +x $usrbin
