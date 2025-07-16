@@ -184,7 +184,7 @@ tmuxSession="main@${hostname}"
 
 # useful tmux functions
 function attachTmux {
-        tmux new-session -A -s $tmuxSession
+        tmux -u new-session -A -s $tmuxSession
 }
 function detachTmuxAndRunThenReattach {
         if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
@@ -201,9 +201,9 @@ if ! { [ -n "$TMUX" ]; } then
 		echo "not inside tmux: TERM=$TERM and TMUX=$TMUX."
         ID="`tmux ls | cut -d: -f1`" # get the id of a deattached session
         if [[ -z "$ID" ]] ;then # if not available create a new one
-                tmux new-session -A -s main@$hostname
+                tmux -u new-session -A -s main@$hostname 
         else
-                tmux attach-session -t "$ID" # if available attach to it
+                tmux -u attach-session -t "$ID"  # if available attach to it
         fi
         #exit
 fi
