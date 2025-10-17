@@ -12,9 +12,9 @@ wget -O - "https://github.com/toxic0berliner/dotfiles/raw/master/setup.sh" | bas
 
 ## My own gitlab
 ```
-curl -L "https://gitlab.amato.top/toxic/dotfiles/-/raw/master/setup.sh?ref_type=heads&inline=false" | bash
+curl -L "https://gitlab.molinier.io/toxic/dotfiles/-/raw/master/setup.sh?ref_type=heads&inline=false" | bash
 ```
 or
 ```
-wget -O - "https://gitlab.amato.top/toxic/dotfiles/-/raw/master/setup.sh?ref_type=heads&inline=false" | bash
+wget -O - "https://gitlab.molinier.io/toxic/dotfiles/-/raw/master/setup.sh?ref_type=heads&inline=false" | bash
 ```

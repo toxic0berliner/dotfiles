@@ -2,9 +2,9 @@
 
 installroot=$HOME
 installfolder=".dotfiles"
-giturlssh="ssh://git@gitlab.amato.top:8022/toxic/dotfiles.git"
-giturlhttps="https://gitlab.amato.top/toxic/dotfiles.git"
-downloadurlbase="https://gitlab.amato.top/toxic/dotfiles/-/raw/master"
+giturlssh="ssh://git@gitlab.molinier.io:8022/toxic/dotfiles.git"
+giturlhttps="https://gitlab.molinier.io/toxic/dotfiles.git"
+downloadurlbase="https://gitlab.molinier.io/toxic/dotfiles/-/raw/master"
 downloadurlsuffix="?ref_type=heads&inline=false"
 
 
@@ -15,7 +15,7 @@ downloadurlbase_mirror="https://raw.githubusercontent.com/toxic0berliner/dotfile
 downloadurlsuffix_mirror=""
 
 
-#@todo: fallback to github in case amato.top is unavailable.
+#@todo: fallback to github in case molinier.io is unavailable.
 
 fullinstallfolder="$installroot/$installfolder"
 gitavailable=false
